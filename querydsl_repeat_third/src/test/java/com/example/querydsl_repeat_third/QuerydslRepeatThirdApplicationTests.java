@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static com.example.querydsl_repeat_third.entity.QHello.*;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -27,7 +28,7 @@ class QuerydslRepeatThirdApplicationTests {
 		em.persist(hello);
 
 		JPAQueryFactory query = new JPAQueryFactory(em);
-		QHello qHello = new QHello("h");
+		QHello qHello = QHello.hello;
 
 		Hello result = query
 				.selectFrom(qHello)
