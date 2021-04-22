@@ -22,35 +22,14 @@ class MemberTest {
     @Test
     public void testEntity() throws Exception {
         //given
-        Team teamA = new Team().builder()
-                .name("teamA")
-                .build();
-        Team teamB = new Team().builder()
-                .name("teamB")
-                .build();
-        em.persist(teamA);
-        em.persist(teamB);
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
 
-        Member member1 = new Member().builder()
-                .username("member1")
-                .age(10)
-                .team(teamA)
-                .build();
-        Member member2 = new Member().builder()
-                .username("member2")
-                .age(20)
-                .team(teamA)
-                .build();
-        Member member3 = new Member().builder()
-                .username("member3")
-                .age(30)
-                .team(teamB)
-                .build();
-        Member member4 = new Member().builder()
-                .username("member4")
-                .age(40)
-                .team(teamB)
-                .build();
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 20, teamA);
+        Member member3 = new Member("member3", 30, teamB);
+        Member member4 = new Member("member4", 40, teamB);
+
         em.persist(member1);
         em.persist(member2);
         em.persist(member3);
