@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static com.example.querydsl_repeat_third.entity.QMember.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -67,5 +69,25 @@ public class QuerydslBasicTest {
                 .fetchOne();
         //then
         assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void search() throws Exception {
+        //given
+        Member findMember = queryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1"),
+                        (member.age.eq(10)))
+                .fetchOne();
+
+        List<Member> findMembers = queryFactory
+                .selectFrom(member)
+                .where(member.age.between(10, 30))
+                .fetch();
+        //then
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+        assertThat(findMembers)
+                .extracting("username")
+                .containsExactly("member1", "member2","member3");
     }
 }
