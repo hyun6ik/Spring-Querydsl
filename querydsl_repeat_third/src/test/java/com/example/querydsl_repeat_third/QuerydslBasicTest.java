@@ -3,6 +3,7 @@ package com.example.querydsl_repeat_third;
 import com.example.querydsl_repeat_third.entity.Member;
 import com.example.querydsl_repeat_third.entity.QMember;
 import com.example.querydsl_repeat_third.entity.Team;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,5 +90,34 @@ public class QuerydslBasicTest {
         assertThat(findMembers)
                 .extracting("username")
                 .containsExactly("member1", "member2","member3");
+    }
+
+
+    @Test
+    public void resultFetchTest() throws Exception {
+        //given
+//        List<Member> fetch = queryFactory
+//                .selectFrom(member)
+//                .fetch();
+//        Member fetchOne = queryFactory
+//                .selectFrom(member)
+//                .fetchOne();
+//        Member fetchFirst = queryFactory
+//                .selectFrom(member)
+//                .fetchFirst();
+        QueryResults<Member> results = queryFactory
+                .selectFrom(member)
+                .fetchResults();
+
+        results.getTotal();
+        List<Member> content = results.getResults();
+
+        long total = queryFactory
+                .selectFrom(member)
+                .fetchCount();
+        //when
+
+        //then
+
     }
 }
